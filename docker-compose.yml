@@ -1,0 +1,33 @@
+version: "3.4"
+services:
+  character:
+    container_name: character
+    build:
+      context: ./character
+    ports:
+      - "3000:3000"
+    environment:
+      - EXTERNAL_PORT=3000
+      - MONGO_URL=mongodb://mongo:27017/gioco
+      - CLIENT_HOST=attack
+      - CLIENT_PORT=8877
+  
+  attack:
+    container_name: attack
+    build:
+      context: ./attack
+    ports:
+      - "8877:8877"
+    environment:
+      - EXTERNAL_PORT=8877
+      - HOST=0.0.0.0
+
+  mongo:
+    image: mongo
+    container_name: mongo
+    ports:
+      - 27017:27017
+    restart: always
+
+
+     
